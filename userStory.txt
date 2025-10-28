@@ -1,0 +1,37 @@
+🧩 User Story principal
+Título:
+
+Sistema de gestión de inventario de plantas 🌱
+
+Descripción:
+
+Como usuario autenticado, quiero poder gestionar (crear, leer, actualizar y eliminar) registros de plantas dentro de un sistema NestJS conectado a una base de datos PostgreSQL.
+Dependiendo de mi rol (admin o analyst), el sistema debe limitar lo que puedo hacer.
+
+Roles y Permisos:
+
+Admin
+
+Puede crear, ver, actualizar y eliminar plantas.
+
+Puede gestionar usuarios (opcional, si luego lo agregamos).
+
+Analyst
+
+Solo puede ver plantas (listar y ver detalles).
+
+No puede crear, editar ni eliminar.
+
+Flujo básico:
+
+El usuario se registra o inicia sesión.
+
+NestJS valida las credenciales y genera un token JWT.
+
+Según el rol, el backend controla el acceso a las rutas:
+
+/plants (GET, POST, PUT, DELETE)
+
+/plants/:id (GET, PUT, DELETE)
+
+La información se guarda en una base de datos PostgreSQL.
