@@ -17,7 +17,7 @@ import { DatabaseSeeder } from './database.seeder';
         username: config.get<string>('DATABASE_USER'),
         password: config.get<string>('DATABASE_PASSWORD'),
         database: config.get<string>('DATABASE_NAME'),
-        synchronize: true,
+        synchronize: true, // TEMPORAL: Crea las tablas automáticamente
         autoLoadEntities: true,
         logging: true,
         ssl: {
