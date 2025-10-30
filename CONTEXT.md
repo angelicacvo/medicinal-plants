@@ -1,7 +1,5 @@
-🧾 Actualización de CONTEXT.md
-🪴 Proyecto: Sistema de Inventario de Plantas (NestJS + PostgreSQL)
+🎯 Objetivo general
 
-Objetivo general:
 Construir un sistema backend con NestJS para gestionar un inventario de plantas, con autenticación, autorización por roles y conexión a base de datos PostgreSQL.
 
 Etapa 0 – Planificación (✅ Completada)
@@ -16,11 +14,13 @@ Creado archivo CONTEXT.md para documentar el progreso.
 
 Etapa 1 – Configuración inicial del proyecto NestJS (✅ Completada)
 
-Instaladas dependencias base (npm i).
-
 Proyecto generado con Nest CLI.
 
 Servidor confirmado corriendo en http://localhost:3000.
+
+Dependencias base instaladas.
+
+Configuración modular establecida.
 
 Etapa 2 – CRUD en memoria de Plantas (✅ Completada)
 
@@ -28,40 +28,90 @@ Creado módulo plants con controlador, servicio y DTOs.
 
 Implementado CRUD completo con almacenamiento en memoria.
 
-Manejo de errores con NotFoundException.
+IDs autoincrementales.
 
-IDs autoincrementales implementados.
+Manejo de errores con NotFoundException.
 
 Probado con Postman (GET, POST, PUT, DELETE).
 
-Estado actual:
-El sistema de plantas funciona completamente, pero sin persistencia ni control de acceso.
+📌 Estado:
+El sistema de plantas funciona completamente en memoria, sin persistencia ni autenticación.
 
-Etapa 3 – Autenticación y Autorización con JWT (🚧 En progreso)
+Etapa 3 – Autenticación y Autorización con JWT (✅ Completada)
+🔑 Objetivo
 
-Objetivo:
-Implementar registro e inicio de sesión con JWT y control de permisos basado en roles (admin, analyst).
+Implementar registro, inicio de sesión con JWT y control de permisos basado en roles.
 
-Pasos planificados:
+🔧 Implementación realizada
 
-Crear módulo auth.
+Creado módulo auth con controlador, servicio y DTOs (LoginDto, RegisterDto).
 
-Crear DTOs para login y registro.
+Añadido JwtModule con configuración de firma y validación.
 
-Implementar usuarios en memoria (temporalmente).
+Implementado guardas personalizados:
 
-Configurar JWT (firmar y validar tokens).
+JwtAuthGuard → protege rutas con token válido.
 
-Crear guard para proteger rutas y aplicar roles.
+RolesGuard → valida roles (admin, analyst).
 
-Integrar autenticación con el módulo plants.
+Añadido decorador @Roles() para asignar permisos.
 
-Etapa 4 – Integración con PostgreSQL (⏳ Próxima)
+Endpoint /auth/profile protegido con JWT.
 
-Configurar conexión con TypeORM.
+Usuarios en memoria implementados:
 
-Persistir usuarios y plantas en la base de datos.
+admin@example.com
+ / admin123 → rol: admin
 
-Reemplazar los servicios en memoria por repositorios reales.
+analyst@example.com
+ / analyst123 → rol: analyst
 
-✅ Contexto actualizado y claro para continuar con la Etapa 3 – Autenticación con JWT.
+Validación de credenciales y generación de tokens JWT confirmada.
+
+Acceso diferenciado por roles probado con Postman.
+
+📌 Estado:
+Autenticación funcional, JWT activo, roles verificados, rutas protegidas correctamente.
+
+Etapa 4 – Integración con PostgreSQL (🚧 Próxima etapa)
+🎯 Objetivo
+
+Persistir datos reales de usuarios y plantas en una base de datos PostgreSQL, reemplazando el almacenamiento en memoria.
+
+🔜 Pasos planificados
+
+Configurar TypeORM
+
+Instalar dependencias:
+
+npm install @nestjs/typeorm typeorm pg
+
+
+Crear archivo .env con variables de conexión.
+
+Integrar TypeOrmModule en AppModule.
+
+Crear entidades
+
+User (en /auth/entities/user.entity.ts)
+
+Plant (en /plants/entities/plant.entity.ts)
+
+Conectar servicios
+
+Reemplazar almacenamiento en memoria por repositorios TypeORM en auth.service.ts y plants.service.ts.
+
+Probar persistencia
+
+Ejecutar operaciones CRUD reales con Postman.
+
+Confirmar que el sistema sigue validando JWT y roles.
+
+Actualizar CONTEXT.md
+
+Documentar la migración completa a PostgreSQL.
+
+📌 Estado actual del proyecto:
+
+Sistema funcional con autenticación JWT, roles, rutas protegidas y módulos estructurados.
+Listo para conectar con PostgreSQL y reemplazar la capa en memoria por persistencia real.
