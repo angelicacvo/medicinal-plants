@@ -18,7 +18,7 @@ export class PlantsService {
     });
 
     if (existingPlant) {
-      throw new BadRequestException('La planta ya existe');
+      throw new BadRequestException('Plant already exists');
     }
 
     const plant = this.plantsRepository.create(createPlantDto);
@@ -32,7 +32,7 @@ export class PlantsService {
   async findOne(id: number): Promise<Plant> {
     const plant = await this.plantsRepository.findOne({ where: { id } });
     if (!plant) {
-      throw new NotFoundException(`Planta con ID ${id} no encontrada`);
+      throw new NotFoundException(`Plant with ID ${id} not found`);
     }
     return plant;
   }
@@ -41,7 +41,7 @@ export class PlantsService {
     const plant = await this.plantsRepository.findOne({ where: { id } });
 
     if (!plant) {
-      throw new NotFoundException(`Planta número ${id} no encontrada`);
+      throw new NotFoundException(`Plant number ${id} not found`);
     }
 
     const existingPlant = await this.plantsRepository.findOne({
@@ -49,7 +49,7 @@ export class PlantsService {
     });
 
     if (existingPlant && existingPlant.id !== id) {
-      throw new ConflictException('La planta ya existe');
+      throw new ConflictException('Plant already exists');
     }
 
     Object.assign(plant, updatePlantDto);
@@ -61,11 +61,11 @@ export class PlantsService {
     const plant = await this.plantsRepository.findOne({ where: { id } });
 
     if (!plant) {
-      throw new NotFoundException(`Planta número ${id} no encontrada`);
+      throw new NotFoundException(`Plant number ${id} not found`);
     }
 
     await this.plantsRepository.remove(plant);
-    return { message: `Planta número ${id} eliminada correctamente` };
+    return { message: `Plant number ${id} deleted successfully` };
   }
 
 }

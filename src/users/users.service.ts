@@ -18,7 +18,7 @@ export class UsersService {
     });
 
     if (user) {
-      throw new ConflictException('El usuario ya existe');
+      throw new ConflictException('User already exists');
     }
 
     const newUser = this.usersRepository.create(createUserDto);
@@ -36,7 +36,7 @@ export class UsersService {
   async findOne(id: number): Promise<User> {
     const user = await this.usersRepository.findOne({ where: { id } });
     if (!user) {
-      throw new NotFoundException(`Usuario con ID ${id} no encontrado`);
+      throw new NotFoundException(`User with ID ${id} not found`);
     }
     return user;
   }
@@ -45,13 +45,13 @@ export class UsersService {
     const user = await this.usersRepository.findOneBy({ id });
 
     if (!user) {
-      throw new NotFoundException(`Usuario con ID ${id} no encontrado`);
+      throw new NotFoundException(`User with ID ${id} not found`);
     }
     const existingUser = await this.usersRepository.findOne({
       where: { email: updateUserDto.email },
     });
     if (existingUser && existingUser.id !== id) {
-      throw new ConflictException('El email ya está en uso por otro usuario');
+      throw new ConflictException('Email is already in use by another user');
     }
     Object.assign(user, updateUserDto);
     return this.usersRepository.save(user);
@@ -60,7 +60,7 @@ export class UsersService {
   async remove(id: number): Promise<void> {
     const user = await this.usersRepository.findOneBy({ id });
     if (!user) {
-      throw new NotFoundException(`Usuario con ID ${id} no encontrado`);
+      throw new NotFoundException(`User with ID ${id} not found`);
     }
     await this.usersRepository.delete(id);
   }

@@ -1,12 +1,12 @@
 import { createParamDecorator, ExecutionContext } from '@nestjs/common';
 
-// Decorator para obtener fácilmente los datos del usuario logueado
+// Decorator to easily get logged user data
 export const GetUser = createParamDecorator(
   (data: unknown, ctx: ExecutionContext) => {
     const request = ctx.switchToHttp().getRequest();
-    // Retorna los datos que el JwtGuard puso en request.user
+    // Returns the data that JwtGuard put in request.user
     return request.user;
   },
 );
 
-// USO: @GetUser() usuario: any
+// USAGE: @GetUser() user: any

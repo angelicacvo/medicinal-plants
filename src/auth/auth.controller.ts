@@ -3,26 +3,26 @@ import { AuthService } from './auth.service';
 import { RegisterDto } from './dto/register.dto';
 import { LoginDto } from './dto/login.dto';
 
-@Controller('auth') // Todas las rutas empiezan con /auth
+@Controller('auth') // All routes start with /auth
 export class AuthController {
   constructor(private authService: AuthService) {}
 
-  // POST /auth/register - Crear nueva cuenta
+  // POST /auth/register - Create new account
   @Post('register')
-  async registrarse(@Body() datosRegistro: RegisterDto) {
-    // El DTO automáticamente valida que:
-    // - fullName no esté vacío
-    // - email sea un email válido
-    // - password tenga mínimo 6 caracteres
-    return this.authService.register(datosRegistro);
+  async register(@Body() registerData: RegisterDto) {
+    // DTO automatically validates that:
+    // - fullName is not empty
+    // - email is a valid email
+    // - password has at least 6 characters
+    return this.authService.register(registerData);
   }
 
-  // POST /auth/login - Iniciar sesión
+  // POST /auth/login - Sign in
   @Post('login')
-  async iniciarSesion(@Body() datosLogin: LoginDto) {
-    // El DTO automáticamente valida que:
-    // - email sea un email válido
-    // - password no esté vacío
-    return this.authService.login(datosLogin);
+  async login(@Body() loginData: LoginDto) {
+    // DTO automatically validates that:
+    // - email is a valid email
+    // - password is not empty
+    return this.authService.login(loginData);
   }
 }

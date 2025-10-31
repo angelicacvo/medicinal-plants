@@ -14,24 +14,24 @@ export class DatabaseSeeder {
   ) {}
 
   async seed() {
-    console.log('Iniciando seeding de la base de datos...');
+    console.log('Starting database seeding...');
 
-    // Verificar si ya hay datos
+    // Check if data already exists
     const userCount = await this.userRepository.count();
     if (userCount > 0) {
-      console.log('La base de datos ya contiene datos. Saltando seeding.');
+      console.log('Database already contains data. Skipping seeding.');
       return;
     }
 
-    // Crear usuarios realistas
+    // Create realistic users
     const users = await this.createUsers();
-    console.log(`Creados ${users.length} usuarios`);
+    console.log(`Created ${users.length} users`);
 
-    // Crear plantas medicinales realistas
+    // Create realistic medicinal plants
     const plants = await this.createPlants(users);
-    console.log(`Creadas ${plants.length} plantas medicinales`);
+    console.log(`Created ${plants.length} medicinal plants`);
 
-    console.log('Seeding completado exitosamente');
+    console.log('Seeding completed successfully');
   }
 
   private async createUsers(): Promise<User[]> {
@@ -39,7 +39,7 @@ export class DatabaseSeeder {
       {
         fullName: 'María Elena Herrera',
         email: 'maria.herrera@gmail.com',
-        password: 'password123', // En producción esto debería estar hasheado
+        password: 'password123', // In production this should be hashed
       },
       {
         fullName: 'Carlos Andrés Medina',
@@ -80,7 +80,7 @@ export class DatabaseSeeder {
 
   private async createPlants(users: User[]): Promise<Plant[]> {
     const plantsData = [
-      // Plantas de María Elena (especialista en plantas digestivas)
+      // María Elena's plants (digestive plants specialist)
       {
         name: 'Manzanilla',
         species: 'Matricaria chamomilla',

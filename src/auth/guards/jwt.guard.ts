@@ -2,7 +2,7 @@ import { Injectable, CanActivate, ExecutionContext, UnauthorizedException } from
 import { JwtService } from '@nestjs/jwt';
 import { ConfigService } from '@nestjs/config';
 
-// Guard = "Guardián" que verifica si tienes permiso para entrar
+// Guard = "Guardian" that verifies if you have permission to enter
 @Injectable()
 export class JwtGuard implements CanActivate {
   constructor(
@@ -11,38 +11,38 @@ export class JwtGuard implements CanActivate {
   ) {}
 
   canActivate(context: ExecutionContext): boolean {
-    // 1. Obtener la petición HTTP
+    // 1. Get HTTP request
     const request = context.switchToHttp().getRequest();
     
-    // 2. Extraer el token del header "Authorization: Bearer token123..."
-    const token = this.extraerToken(request);
+    // 2. Extract token from header "Authorization: Bearer token123..."
+    const token = this.extractToken(request);
     
     if (!token) {
-      throw new UnauthorizedException('Necesitas estar logueado para acceder aquí');
+      throw new UnauthorizedException('You need to be logged in to access here');
     }
 
     try {
-      // 3. Verificar que el token sea válido
-      const datosDelUsuario = this.jwtService.verify(token, {
+      // 3. Verify token is valid
+      const userData = this.jwtService.verify(token, {
         secret: this.configService.get<string>('JWT_SECRET'),
       });
 
-      // 4. Agregar los datos del usuario a la petición
-      // Ahora puedes usar @GetUser() en el controlador
-      request.user = datosDelUsuario;
+      // 4. Add user data to request
+      // Now you can use @GetUser() in controller
+      request.user = userData;
       
-      return true; // ✅ Permitir acceso
+      return true; // ✅ Allow access
     } catch (error) {
-      throw new UnauthorizedException('Token inválido o expirado');
+      throw new UnauthorizedException('Invalid or expired token');
     }
   }
 
-  // Función para extraer "token123" de "Bearer token123"
-  private extraerToken(request: any): string | undefined {
+  // Function to extract "token123" from "Bearer token123"
+  private extractToken(request: any): string | undefined {
     const authorization = request.headers.authorization;
     if (!authorization) return undefined;
     
-    const [tipo, token] = authorization.split(' ');
-    return tipo === 'Bearer' ? token : undefined;
+    const [type, token] = authorization.split(' ');
+    return type === 'Bearer' ? token : undefined;
   }
 }

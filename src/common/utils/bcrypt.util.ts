@@ -1,14 +1,14 @@
 import * as bcrypt from 'bcrypt';
 
-// Utilidad para manejar contraseñas de forma segura
+// Utility to handle passwords securely
 export class BcryptUtil {
-  // Convierte "123456" en algo como "$2b$10$abcd1234..."
-  static async encriptarPassword(password: string): Promise<string> {
+  // Converts "123456" into something like "$2b$10$abcd1234..."
+  static async hashPassword(password: string): Promise<string> {
     return await bcrypt.hash(password, 10);
   }
 
-  // Compara "123456" con "$2b$10$abcd1234..." y dice si son iguales
-  static async compararPassword(passwordTextoPlano: string, passwordEncriptado: string): Promise<boolean> {
-    return await bcrypt.compare(passwordTextoPlano, passwordEncriptado);
+  // Compares "123456" with "$2b$10$abcd1234..." and returns if they match
+  static async comparePassword(plainTextPassword: string, hashedPassword: string): Promise<boolean> {
+    return await bcrypt.compare(plainTextPassword, hashedPassword);
   }
 }

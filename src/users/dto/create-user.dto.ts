@@ -1,20 +1,20 @@
 import { IsNotEmpty, IsString, MaxLength, IsEmail, MinLength } from 'class-validator';
 
 export class CreateUserDto {
-  @IsNotEmpty({ message: 'El nombre es requerido' })
-  @IsString({ message: 'El nombre debe ser un texto' })
-  @MinLength(2, { message: 'El nombre debe tener al menos 2 caracteres' })
-  @MaxLength(100, { message: 'El nombre no puede exceder 100 caracteres' })
+  @IsNotEmpty({ message: 'Full name is required' })
+  @IsString({ message: 'Full name must be a string' })
+  @MinLength(2, { message: 'Full name must have at least 2 characters' })
+  @MaxLength(100, { message: 'Full name cannot exceed 100 characters' })
   fullName: string;
 
-  @IsNotEmpty({ message: 'El email es requerido' })
-  @IsEmail({}, { message: 'Debe ser un email válido' })
-  @MaxLength(255, { message: 'El email no puede exceder 255 caracteres' })
+  @IsNotEmpty({ message: 'Email is required' })
+  @IsEmail({}, { message: 'Must be a valid email' })
+  @MaxLength(255, { message: 'Email cannot exceed 255 characters' })
   email: string;
 
-  @IsNotEmpty({ message: 'La contraseña es requerida' })
-  @IsString({ message: 'La contraseña debe ser un texto' })
-  @MinLength(6, { message: 'La contraseña debe tener al menos 6 caracteres' })
-  @MaxLength(50, { message: 'La contraseña no puede exceder 50 caracteres' })
+  @IsNotEmpty({ message: 'Password is required' })
+  @IsString({ message: 'Password must be a string' })
+  @MinLength(6, { message: 'Password must have at least 6 characters' })
+  @MaxLength(50, { message: 'Password cannot exceed 50 characters' })
   password: string;
 }

@@ -1,25 +1,25 @@
 import { IsNotEmpty, IsString, MaxLength, IsOptional, MinLength, IsNumber, IsPositive } from 'class-validator';
 
 export class CreatePlantDto {
-  @IsNotEmpty({ message: 'El nombre es requerido' })
-  @IsString({ message: 'El nombre debe ser un texto' })
-  @MinLength(2, { message: 'El nombre debe tener al menos 2 caracteres' })
-  @MaxLength(100, { message: 'El nombre no puede exceder 100 caracteres' })
+  @IsNotEmpty({ message: 'Name is required' })
+  @IsString({ message: 'Name must be a string' })
+  @MinLength(2, { message: 'Name must have at least 2 characters' })
+  @MaxLength(100, { message: 'Name cannot exceed 100 characters' })
   name: string;
 
-  @IsNotEmpty({ message: 'La especie es requerida' })
-  @IsString({ message: 'La especie debe ser un texto'})
-  @MinLength(2, { message: 'La especie debe tener al menos 2 caracteres' })
-  @MaxLength(150, { message: 'La especie no puede exceder 150 caracteres' })
+  @IsNotEmpty({ message: 'Species is required' })
+  @IsString({ message: 'Species must be a string'})
+  @MinLength(2, { message: 'Species must have at least 2 characters' })
+  @MaxLength(150, { message: 'Species cannot exceed 150 characters' })
   species: string;
 
   @IsOptional()
-  @IsString({ message: 'La descripción debe ser un texto'})
-  @MaxLength(500, { message: 'La descripción no puede exceder 500 caracteres' })
+  @IsString({ message: 'Description must be a string'})
+  @MaxLength(500, { message: 'Description cannot exceed 500 characters' })
   description?: string;
 
-  @IsNotEmpty({ message: 'El ID del usuario es requerido' })
-  @IsNumber({}, { message: 'El ID del usuario debe ser un número' })
-  @IsPositive({ message: 'El ID del usuario debe ser positivo' })
+  @IsNotEmpty({ message: 'User ID is required' })
+  @IsNumber({}, { message: 'User ID must be a number' })
+  @IsPositive({ message: 'User ID must be positive' })
   userId: number;
 }

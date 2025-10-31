@@ -16,25 +16,25 @@ import { UpdateUserDto } from './dto/update-user.dto';
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
-  // GET ALL - Obtener todos los usuarios
+  // GET ALL - Get all users
   @Get()
   findAll() {
     return this.usersService.findAll();
   }
 
-  // GET BY ID - Obtener un usuario por ID
+  // GET BY ID - Get a user by ID
   @Get(':id')
   findOne(@Param('id', ParseIntPipe) id: number) {
     return this.usersService.findOne(id);
   }
 
-  // POST - Crear nuevo usuario
+  // POST - Create new user
   @Post()
   create(@Body() createUserDto: CreateUserDto) {
     return this.usersService.create(createUserDto);
   }
 
-  // PUT - Actualizar usuario completo
+  // PUT - Update complete user
   @Put(':id')
   update(
     @Param('id', ParseIntPipe) id: number, 
@@ -43,7 +43,7 @@ export class UsersController {
     return this.usersService.update(id, updateUserDto);
   }
 
-  // DELETE - Eliminar usuario
+  // DELETE - Delete user
   @Delete(':id')
   remove(@Param('id', ParseIntPipe) id: number) {
     return this.usersService.remove(id);

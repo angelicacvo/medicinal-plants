@@ -8,78 +8,78 @@ import { LoginDto } from './dto/login.dto';
 @Injectable()
 export class AuthService {
   constructor(
-    private usersService: UsersService, // Para manejar usuarios
-    private jwtService: JwtService,     // Para crear tokens JWT
+    private usersService: UsersService, // To manage users
+    private jwtService: JwtService,     // To create JWT tokens
   ) {}
 
-  // REGISTRO: Crear nueva cuenta
+  // REGISTER: Create new account
   async register(registerDto: RegisterDto) {
-    // 1. Encriptar la contraseña para seguridad
-    const passwordEncriptado = await BcryptUtil.encriptarPassword(registerDto.password);
+    // 1. Encrypt password for security
+    const hashedPassword = await BcryptUtil.hashPassword(registerDto.password);
 
-    // 2. Crear el usuario con la contraseña encriptada
-    const nuevoUsuario = await this.usersService.create({
+    // 2. Create user with encrypted password
+    const newUser = await this.usersService.create({
       fullName: registerDto.fullName,
       email: registerDto.email,
-      password: passwordEncriptado, // Guardamos la versión encriptada
+      password: hashedPassword, // Save the encrypted version
     });
 
-    // 3. Crear un token JWT para que no tenga que volver a hacer login
-    const token = this.crearToken(nuevoUsuario);
+    // 3. Create JWT token so user doesn't need to login again
+    const token = this.createToken(newUser);
 
-    // 4. Devolver respuesta (SIN la contraseña por seguridad)
+    // 4. Return response (WITHOUT password for security)
     return {
-      mensaje: 'Usuario registrado exitosamente',
-      usuario: {
-        id: nuevoUsuario.id,
-        nombre: nuevoUsuario.fullName,
-        email: nuevoUsuario.email,
+      message: 'User registered successfully',
+      user: {
+        id: newUser.id,
+        fullName: newUser.fullName,
+        email: newUser.email,
       },
       token: token,
     };
   }
 
-  // LOGIN: Verificar credenciales
+  // LOGIN: Verify credentials
   async login(loginDto: LoginDto) {
-    // 1. Buscar el usuario por email
-    const usuario = await this.usersService.findByEmail(loginDto.email);
-    if (!usuario) {
-      throw new UnauthorizedException('Email o contraseña incorrectos');
+    // 1. Find user by email
+    const user = await this.usersService.findByEmail(loginDto.email);
+    if (!user) {
+      throw new UnauthorizedException('Incorrect email or password');
     }
 
-    // 2. Verificar que la contraseña sea correcta
-    const passwordCorrecta = await BcryptUtil.compararPassword(
-      loginDto.password,        // Lo que escribió el usuario
-      usuario.password         // Lo que está guardado en la BD (encriptado)
+    // 2. Verify password is correct
+    const isPasswordCorrect = await BcryptUtil.comparePassword(
+      loginDto.password,        // What user entered
+      user.password         // What's stored in DB (encrypted)
     );
 
-    if (!passwordCorrecta) {
-      throw new UnauthorizedException('Email o contraseña incorrectos');
+    if (!isPasswordCorrect) {
+      throw new UnauthorizedException('Incorrect email or password');
     }
 
-    // 3. Si todo está bien, crear un token
-    const token = this.crearToken(usuario);
+    // 3. If everything is correct, create token
+    const token = this.createToken(user);
 
-    // 4. Devolver respuesta exitosa
+    // 4. Return successful response
     return {
-      mensaje: 'Login exitoso',
-      usuario: {
-        id: usuario.id,
-        nombre: usuario.fullName,
-        email: usuario.email,
+      message: 'Login successful',
+      user: {
+        id: user.id,
+        fullName: user.fullName,
+        email: user.email,
       },
       token: token,
     };
   }
 
-  // Función privada para crear tokens JWT
-  private crearToken(usuario: any): string {
-    const datosDelToken = {
-      sub: usuario.id,           // "sub" = subject (ID del usuario)
-      email: usuario.email,
-      nombre: usuario.fullName,
+  // Private function to create JWT tokens
+  private createToken(user: any): string {
+    const tokenData = {
+      sub: user.id,           // "sub" = subject (user ID)
+      email: user.email,
+      fullName: user.fullName,
     };
     
-    return this.jwtService.sign(datosDelToken);
+    return this.jwtService.sign(tokenData);
   }
 }
