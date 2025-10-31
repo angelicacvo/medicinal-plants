@@ -3,12 +3,9 @@ import {
   Get, 
   Post, 
   Body, 
-  Patch, 
+  Put, 
   Param, 
   Delete, 
-  HttpCode, 
-  HttpStatus,
-  Query,
   ParseIntPipe
 } from '@nestjs/common';
 import { PlantsService } from './plants.service';
@@ -19,38 +16,26 @@ import { UpdatePlantDto } from './dto/update-plant.dto';
 export class PlantsController {
   constructor(private readonly plantsService: PlantsService) {}
 
-  @Post()
-  @HttpCode(HttpStatus.CREATED)
-  create(@Body() createPlantDto: CreatePlantDto) {
-    return this.plantsService.create(createPlantDto);
-  }
-
+  // GET ALL - Obtener todas las plantas
   @Get()
-  @HttpCode(HttpStatus.OK)
   findAll() {
     return this.plantsService.findAll();
   }
 
-  @Get('search')
-  @HttpCode(HttpStatus.OK)
-  search(@Query('name') name: string) {
-    return this.plantsService.searchByName(name);
-  }
-
-  @Get('user/:userId')
-  @HttpCode(HttpStatus.OK)
-  findByUser(@Param('userId', ParseIntPipe) userId: number) {
-    return this.plantsService.findByUser(userId);
-  }
-
+  // GET BY ID - Obtener una planta por ID
   @Get(':id')
-  @HttpCode(HttpStatus.OK)
   findOne(@Param('id', ParseIntPipe) id: number) {
     return this.plantsService.findOne(id);
   }
 
-  @Patch(':id')
-  @HttpCode(HttpStatus.OK)
+  // POST - Crear nueva planta
+  @Post()
+  create(@Body() createPlantDto: CreatePlantDto) {
+    return this.plantsService.create(createPlantDto);
+  }
+
+  // PUT - Actualizar planta completa
+  @Put(':id')
   update(
     @Param('id', ParseIntPipe) id: number, 
     @Body() updatePlantDto: UpdatePlantDto
@@ -58,8 +43,8 @@ export class PlantsController {
     return this.plantsService.update(id, updatePlantDto);
   }
 
+  // DELETE - Eliminar planta
   @Delete(':id')
-  @HttpCode(HttpStatus.OK)
   remove(@Param('id', ParseIntPipe) id: number) {
     return this.plantsService.remove(id);
   }

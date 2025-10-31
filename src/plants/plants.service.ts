@@ -27,13 +27,10 @@ export class PlantsService {
 
   async findAll(): Promise<Plant[]> {
     return await this.plantsRepository.find();
-
   }
 
   async findOne(id: number): Promise<Plant> {
-    const plant = await this.plantsRepository.findOne({
-      where: { id },
-    });
+    const plant = await this.plantsRepository.findOne({ where: { id } });
     if (!plant) {
       throw new NotFoundException(`Planta con ID ${id} no encontrada`);
     }
