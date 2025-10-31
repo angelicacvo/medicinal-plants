@@ -100,7 +100,7 @@ export class DatabaseSeeder {
         userId: users[0].id,
       },
 
-      // Plantas de Carlos (enfocado en plantas respiratorias)
+      // Carlos' plants (focused on respiratory plants)
       {
         name: 'Eucalipto',
         species: 'Eucalyptus globulus',
@@ -120,7 +120,7 @@ export class DatabaseSeeder {
         userId: users[1].id,
       },
 
-      // Plantas de Ana Sofía (especialista en plantas para la piel)
+      // Ana Sofía's plants (skin care plants specialist)
       {
         name: 'Sábila',
         species: 'Aloe vera',
@@ -140,7 +140,7 @@ export class DatabaseSeeder {
         userId: users[2].id,
       },
 
-      // Plantas de Roberto (plantas para dolores y inflamación)
+      // Roberto's plants (pain and inflammation plants)
       {
         name: 'Árnica',
         species: 'Arnica montana',
@@ -160,7 +160,7 @@ export class DatabaseSeeder {
         userId: users[3].id,
       },
 
-      // Plantas de Lucía (plantas para el sistema nervioso)
+      // Lucía's plants (nervous system plants)
       {
         name: 'Valeriana',
         species: 'Valeriana officinalis',
@@ -180,7 +180,7 @@ export class DatabaseSeeder {
         userId: users[4].id,
       },
 
-      // Plantas de Miguel (plantas inmunológicas y energizantes)
+      // Miguel's plants (immune system and energizing plants)
       {
         name: 'Equinácea',
         species: 'Echinacea purpurea',
