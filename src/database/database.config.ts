@@ -17,7 +17,7 @@ import { DatabaseSeeder } from './database.seeder';
         username: config.get<string>('DATABASE_USER'),
         password: config.get<string>('DATABASE_PASSWORD'),
         database: config.get<string>('DATABASE_NAME'),
-        synchronize: true, // TEMPORAL: Crea las tablas automáticamente
+        synchronize: true,
         autoLoadEntities: true,
         logging: true,
         ssl: {
@@ -38,15 +38,14 @@ export class DatabaseModule implements OnModuleInit {
   async onModuleInit() {
     if (this.dataSource.isInitialized) {
       console.log('✅ Database connected successfully');
-      
-      // Ejecutar seeder automáticamente
+
       try {
         await this.databaseSeeder.seed();
       } catch (error) {
-        console.error('❌ Error durante el seeding:', error);
+        console.error('Error durante el seeding:', error);
       }
     } else {
-      console.log('❌ Database connection failed');
+      console.log('Database connection failed');
     }
   }
 }
