@@ -1,8 +1,8 @@
 {
   "name": "medicinal-plants",
   "version": "0.0.1",
-  "description": "",
-  "author": "",
+  "description": "A NestJS API for managing medicinal plants with authentication, validation, and Swagger documentation",
+  "author": "Angelica",
   "private": true,
   "license": "UNLICENSED",
   "scripts": {
