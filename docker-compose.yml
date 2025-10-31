@@ -1,0 +1,26 @@
+version: '3.8'
+
+services:
+  # NestJS Application with Supabase
+  app:
+    build: .
+    container_name: medicinal-plants-app
+    restart: always
+    ports:
+      - "3000:3000"
+    environment:
+      # Supabase Database Connection
+      # 🔧 REPLACE WITH YOUR SUPABASE CREDENTIALS:
+      DATABASE_HOST: aws-1-us-east-1.pooler.supabase.com
+      DATABASE_USER: postgres.magwdgwekgcejsvddyfq
+      DATABASE_PASSWORD: AngelicMA0707.
+      DATABASE_PORT: 6543
+      DATABASE_NAME: postgres
+      
+      # JWT Configuration
+      JWT_SECRET: angelica_secret_key
+      JWT_EXPIRES_IN: 1d
+      
+      # App Configuration
+      NODE_ENV: testing
+      PORT: 3000
